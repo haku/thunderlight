@@ -27,7 +27,7 @@
   top: -2.24em; /* -1 x( ( width x cos(30) / 2) + (hexrow bottom margin / 2)) */ 
 }
 
-.hexrow > div > div:first-of-type:before {
+.hexrow > div > .leftwing:before {
   width: 10em; /* width of main + margin sizing */
   -ms-transform:rotate(-60deg) translate(-7.5em, 0); /* IE 9 */
   -moz-transform:rotate(-60deg) translate(-7.5em, 0); /* Firefox */
@@ -36,7 +36,7 @@
   transform:rotate(-60deg) translate(-7.5em, 0);
 }
 
-.hexrow > div > div:last-of-type:before {
+.hexrow > div > .rightwing:before {
   width: 10em; /* starting width + margin sizing */
   /*translate properties are initial width (10em) and half height (173.2 / 2 = 86.6) */
   -ms-transform:rotate(60deg) translate(10em, 4.33em); /* IE 9 */
@@ -62,7 +62,7 @@
   display: inline-block;
 }
 
-.hexrow > div > div:first-of-type {
+.hexrow > div > .leftwing {
   position: absolute;
   width: 100%;
   height: 100%; 
@@ -79,7 +79,7 @@
   transform:rotate(60deg);
 }
 
-.hexrow > div > div:first-of-type:before {
+.hexrow > div > .leftwing:before {
   content: '';
   position: absolute;
   height: 100%;
@@ -95,7 +95,7 @@
   transform-origin: 0 0;
 }
 
-.hexrow > div > div:last-of-type {
+.hexrow > div > .rightwing {
   content: '';
   position: absolute;
   width: 100%;
@@ -113,7 +113,7 @@
   transform:rotate(-60deg);
 }
 
-.hexrow > div > div:last-of-type:before {
+.hexrow > div > .rightwing:before {
   content: '';
   position: absolute;
   height: 100%;
@@ -153,4 +153,3 @@ body {
 .hexrow div:hover, .hexrow div:hover > div, #a1 > div:hover { /* hover hilight */
   background-color: #333;
 }
-
