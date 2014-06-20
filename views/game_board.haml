@@ -6,10 +6,10 @@
   %body
     %h1 ThunderLight
     #gameboard
-      - (0..3).each do
+      - (0..3).each do |x|
         .hexrow
-          - (0..7).each do
+          - (0..7).each do |y|
             %div
-              %span cell text
+              %span (#{x},#{y})
               .leftwing
               .rightwing
