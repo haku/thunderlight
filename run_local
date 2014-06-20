@@ -1,0 +1,9 @@
+#!/bin/bash
+set -eu
+
+conf="$HOME/.thunderlight"
+if [ -e "$conf" ] ; then
+  source "$conf"
+fi
+
+exec bundle exec shotgun -p 9223 config.ru "$@"

@@ -1,0 +1,10 @@
+#!/bin/bash
+set -eu
+
+conf="$HOME/.thunderlight"
+if [ -e "$conf" ] ; then
+  source "$conf"
+fi
+
+#exec bundle exec thin start -p 9292 "$@" 2>&1 | tee -a thin.log
+bundle exec unicorn -l 9222 -c ./unicorn.rb "$@" 2>&1 | tee -a thin.log

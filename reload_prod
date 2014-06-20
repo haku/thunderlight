@@ -1,0 +1,12 @@
+#!/bin/bash
+set -eu
+
+#http://unicorn.bogomips.org/SIGNALS.html
+mpid=$(pgrep -f 'unicorn master')
+echo "Unicorn Master pid: $mpid"
+kill -s USR2  $mpid
+sleep 2
+kill -s WINCH $mpid
+sleep 2
+kill -s QUIT  $mpid
+echo "done."
