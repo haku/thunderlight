@@ -5,9 +5,9 @@
     %link(rel="stylesheet" href="/css/hexgrid.css")
   %body
     #gameboard
-      - (0..3).each do |x|
+      - (0..(height - 1)).each do |x|
         .hexrow
-          - (0..7).each do |y|
+          - (0..(width - 1)).each do |y|
             %div
               %span (#{x},#{y})
               .leftwing
