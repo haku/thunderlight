@@ -13,7 +13,12 @@ require 'fileutils'
 require 'awesome_print'
 require 'pry'
 
+# util
+require './util/hash_helper.rb'
+
 # model
+require './model/state.rb'
+require './model/game_board.rb'
 require './model/unit.rb'
 
 # servlets

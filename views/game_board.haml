@@ -4,16 +4,19 @@
     %title ThunderLight
     %link(rel="stylesheet" href="/css/hexgrid.css")
   %body
+    #toolbar
+      %form{action: '/game_board/tick', method: 'POST'}
+        %input{type: 'submit', value: 'tick'}
     #gameboard
-      - (0..(height - 1)).each do |x|
+      - (0..(board.height - 1)).each do |x|
         .hexrow
-          - (0..(width - 1)).each do |y|
+          - (0..(board.width - 1)).each do |y|
             %div
-              - if units[[x,y]].nil?
+              - if board.units[[x,y]].nil?
                 %span.coordinates (#{x},#{y})
               - else
                 %span
-                  - units[[x,y]].each do |u|
+                  - board.units[[x,y]].each do |u|
                     %p.unit
                       = u.title
                       - if !u.vector.nil?

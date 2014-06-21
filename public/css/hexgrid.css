@@ -2,6 +2,15 @@ body {
   font-family: sans-serif;
 }
 
+#toolbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.2em;
+  border-radius: 0.2em;
+  background: #000;
+}
+
 /* Based on https://stackoverflow.com/questions/10062887/generate-repeating-hexagonal-pattern-with-css3
 */
 
