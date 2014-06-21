@@ -13,6 +13,9 @@ require 'fileutils'
 require 'awesome_print'
 require 'pry'
 
+# model
+require './model/unit.rb'
+
 # servlets
 require './servlets/desu'
 require './servlets/game_board'

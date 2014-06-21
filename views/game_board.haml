@@ -9,6 +9,16 @@
         .hexrow
           - (0..(width - 1)).each do |y|
             %div
-              %span (#{x},#{y})
+              - if units[[x,y]].nil?
+                %span.coordinates (#{x},#{y})
+              - else
+                %span
+                  - units[[x,y]].each do |u|
+                    %p.unit
+                      = u.title
+                      - if !u.vector.nil?
+                        %br
+                        %span=u.vector.map{|k,v| "#{k}#{v}"}.join(' ')
+                    %br
               .leftwing
               .rightwing
