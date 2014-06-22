@@ -3,13 +3,12 @@ body {
 }
 
 #toolbar {
-  position: absolute;
+  position: fixed;
   z-index: 10;
   top: 0;
   right: 0;
   padding: 0.2em;
   border-radius: 0.2em;
-  background: #000;
 }
 
 /* Based on https://stackoverflow.com/questions/10062887/generate-repeating-hexagonal-pattern-with-css3
@@ -18,54 +17,55 @@ body {
 /* cell size */
 
 #gameboard {
-  margin-top: 2.5em; /* 2.24 + bit more */
+  margin-top: 1.3em; /* 1.12 + bit more */
 }
 
 .hexrow { /* cell spacing */
   /*right/left margin set at (( width of child div x sin(30) ) / 2) makes a fairly tight fit; a 3px bottom seems to match*/
-  margin: 0 1.2em 0.2em; 
+  margin: 0 0.3em 0.14em; 
 }
 
 .hexrow > div {
-  width: 5em;
-  height: 8.66em; /* ( width x cos(30) ) x 2 */
+  width: 2.5em;
+  height: 4.33em; /* ( width x cos(30) ) x 2 */
   /* For margin:
   right/left = ( width x sin(30) ) makes no overlap 
-  right/left = (( width x sin(30) ) / 2) leaves a narrow separation
+  right/left = (( width x sin(30) ) / 2.4) leaves a narrow separation
   */
-  margin: 0 1.22em; 
-  line-height: 8.66em; /*equals height*/
+  margin: 0 0.53em;
+  line-height: 4.33em; /*equals height*/
 }
 
 .hexrow > div:nth-child(odd) {
-  top: 2.165em; /* ( width x cos(30) / 2 ) */
+  top: 0.902em; /* ( width x cos(30) / 2.4 ) */
 }
 
 .hexrow > div:nth-child(even) {
-  top: -2.24em; /* -1 x( ( width x cos(30) / 2) + (hexrow bottom margin / 2)) */ 
+  top: -1.32em; /* -1 x( ( width x cos(30) / 2) + (hexrow bottom margin / 2)) */ 
 }
 
 .hexrow > div > .leftwing:before {
-  width: 10em; /* width of main + margin sizing */
-  -ms-transform:rotate(-60deg) translate(-7.5em, 0); /* IE 9 */
-  -moz-transform:rotate(-60deg) translate(-7.5em, 0); /* Firefox */
-  -webkit-transform:rotate(-60deg) translate(-7.5em, 0); /* Safari and Chrome */
-  -o-transform:rotate(-60deg) translate(-7.5em, 0); /* Opera */
-  transform:rotate(-60deg) translate(-7.5em, 0);
+  width: 5em; /* width of main + margin sizing */
+  -ms-transform:rotate(-60deg) translate(-3.75em, 0); /* IE 9 */
+  -moz-transform:rotate(-60deg) translate(-3.75em, 0); /* Firefox */
+  -webkit-transform:rotate(-60deg) translate(-3.75em, 0); /* Safari and Chrome */
+  -o-transform:rotate(-60deg) translate(-3.75em, 0); /* Opera */
+  transform:rotate(-60deg) translate(-3.75em, 0);
 }
 
 .hexrow > div > .rightwing:before {
-  width: 10em; /* starting width + margin sizing */
+  width: 5em; /* starting width + margin sizing */
   /*translate properties are initial width (10em) and half height (173.2 / 2 = 86.6) */
-  -ms-transform:rotate(60deg) translate(10em, 4.33em); /* IE 9 */
-  -moz-transform:rotate(60deg) translate(10em, 4.33em); /* Firefox */
-  -webkit-transform:rotate(60deg) translate(10em, 4.33em); /* Safari and Chrome */
-  -o-transform:rotate(60deg) translate(10em, 4.33em); /* Opera */
-  transform:rotate(60deg) translate(10em, 4.33em);
+  -ms-transform:rotate(60deg) translate(5em, 2.165em); /* IE 9 */
+  -moz-transform:rotate(60deg) translate(5em, 2.165em); /* Firefox */
+  -webkit-transform:rotate(60deg) translate(5em, 2.165em); /* Safari and Chrome */
+  -o-transform:rotate(60deg) translate(5em, 2.165em); /* Opera */
+  transform:rotate(60deg) translate(5em, 2.165em);
 }
 
 .hexrow > div > span {
-  margin: 0 -1.5em;
+  margin: 0 -1em;
+  font-size: 60%;
 }
 
 /* cell layout */
@@ -157,33 +157,61 @@ body {
   white-space: normal; 
 }
 
+/* board details */
+
+.hexrow > div > .coordinates {
+  vertical-align: bottom;
+  cursor: default;
+}
+
+/* units' shape */
+
+.hexrow .unit {
+  display: inline-block;
+  margin: 0.1em 0;
+  padding: 0.1em;
+  border-radius: 5px;
+  cursor: crosshair;
+}
+
+.hexrow .unit .coordinates {
+  display: block;
+  font-size: 80%;
+}
+
 /* colours */
 
 body {
-  background-color: #222;
+  background-color: #a00;
   color: #eee;
+}
+
+#toolbar {
+  background: #f50;
 }
 
 .hexrow > div {
   background-color: #000;
 }
 
-.hexrow div:hover, .hexrow div:hover > div, #a1 > div:hover { /* hover hilight */
-  background-color: #333;
+.hexrow div:hover, .hexrow div:hover > div, #a1 > div:hover { /* hover highlight */
+  background-color: #113;
 }
 
-.coordinates {
+.hexrow > div > .coordinates {
   color: #444;
 }
 
-/* units */
+.hexrow > div:hover > .coordinates {
+  color: #ddd;
+}
 
-.hexrow > div > span > .unit {
-  display: inline-block;
-  margin: 0.1em 0;
-  padding: 0.1em;
+.hexrow .unit {
   background: #000;
-  border: solid 1px #555;
-  border-radius: 5px;
-  font-size: 90%;
+  color: #0f0;
+  border: solid 1px #040;
+}
+
+.hexrow .unit .coordinates {
+  color: #ff0;
 }

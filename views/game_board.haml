@@ -20,8 +20,7 @@
                     %p.unit
                       = u.title
                       - if !u.vector.nil?
-                        %br
-                        %span=u.vector.map{|k,v| "#{k}#{v}"}.join(' ')
+                        %span.coordinates=u.vector.map{|k,v| "#{k}#{v}"}.join(' ')
                     %br
               .leftwing
               .rightwing
