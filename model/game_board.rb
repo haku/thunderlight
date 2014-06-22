@@ -10,7 +10,7 @@ class GameBoard
     GameBoard.new(h[:width], h[:height], units)
   end
 
-  def initialize(width = 8, height = 4, units = {})
+  def initialize(width = 30, height = 20, units = {})
     @width = width
     @height = height
     @units = units
@@ -29,14 +29,51 @@ class GameBoard
     }
   end
 
-  def tick
-    self
+  def tick!
+    new_units = {}
+    @units.each do |c, us|
+      us.each do |u|
+        (new_units[GameBoard.apply_vector(c, u.vector)] ||= []) << u 
+      end
+    end
+    @units = new_units
   end
 
+  private
+
+  def self.apply_vector(coord, v)
+    return coord if v.nil?
+    c = coord.clone
+    v.each do |dir, m|
+      case dir
+      when :n
+        c[1] -= m
+      when :ne
+        c[1] -= m if c[0] % 2 == 1
+        c[0] += m
+      when :se
+        c[1] += m if c[0] % 2 == 0
+        c[0] += m
+      when :s
+        c[1] += m
+      when :sw
+        c[1] += m if c[0] % 2 == 0
+        c[0] -= m
+      when :nw
+        c[1] -= m if c[0] % 2 == 1
+        c[0] -= m
+      end
+    end
+    return c
+  end
+
+
+
+
   def fake_data
-    (@units[[1,2]] ||= []) << Unit.new(
+    (@units[[1,1]] ||= []) << Unit.new(
       title:  'M1',
-      vector: {nw: 1, sw: 1}
+      vector: {ne: 1, se: 1}
     ) << Unit.new(
       title: 'M2'
     )

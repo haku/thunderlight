@@ -8,9 +8,9 @@
       %form{action: '/game_board/tick', method: 'POST'}
         %input{type: 'submit', value: 'tick'}
     #gameboard
-      - (0..(board.height - 1)).each do |x|
+      - (0..(board.height - 1)).each do |y|
         .hexrow
-          - (0..(board.width - 1)).each do |y|
+          - (0..(board.width - 1)).each do |x|
             %div
               - if board.units[[x,y]].nil?
                 %span.coordinates (#{x},#{y})

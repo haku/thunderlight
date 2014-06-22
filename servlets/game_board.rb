@@ -6,7 +6,7 @@ end
 
 post '/game_board/tick' do
   State.update_board do |board|
-    board.tick
+    board.tick!
   end
   redirect to('/game_board')
 end

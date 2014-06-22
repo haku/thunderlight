@@ -17,3 +17,8 @@ gem 'json'
 gem 'shotgun'
 gem 'awesome_print'
 gem 'pry'
+
+group :test do
+  gem 'rspec'
+  gem 'rspec-expectations'
+end

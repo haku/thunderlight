@@ -9,6 +9,10 @@ class Unit
     @vector = params[:vector]
   end
 
+  def to_s
+    "unit{#{@title}, #{@vector || '-'}}"
+  end
+
   def to_json(*a)
     {
       'json_class' => self.class.name,
@@ -20,7 +24,9 @@ class Unit
   end
 
   def self.json_create(o)
-    new(HashHelper.symbolise_keys(o['data']))
+    h = HashHelper.symbolise_keys(o['data'])
+    h[:vector] = HashHelper.symbolise_keys(h[:vector]) if h[:vector]
+    new(h)
   end
 
 end

@@ -18,9 +18,8 @@ module State
 
     def update_board
       board = read_board()
-      new_board = yield board
-      raise "block did not return new board state." if new_board.nil?
-      IO.write(GAME_BOARD_FILE, JSON.pretty_generate(new_board.to_h))
+      yield board
+      IO.write(GAME_BOARD_FILE, JSON.pretty_generate(board.to_h))
     end
 
   end
