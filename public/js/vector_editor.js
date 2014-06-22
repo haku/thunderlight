@@ -5,15 +5,12 @@ VectorEditor = {};
   var dialogDiv;
 
   function createDialog() {
-    dialogDiv = $('<div>editor goes here desu~</div>');
-    dialogDiv.hide();
-    $('body').append(dialogDiv);
-
+    dialogDiv = $('#vectordialog');
     $(dialogDiv).dialog({
       autoOpen: false,
       modal: true,
       open: function(event, ui) {
-        dialogDiv.text('uid: ' + $(dialogDiv).dialog('option', 'uid'));
+//        dialogDiv.append($('<p>uid: ' + $(dialogDiv).dialog('option', 'uid') + '</p>'));
       },
       buttons: {
         Cancel: function() {
