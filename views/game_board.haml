@@ -3,6 +3,10 @@
   %head
     %title ThunderLight
     %link(rel="stylesheet" href="/css/hexgrid.css")
+    %link(rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/dot-luv/jquery-ui.css")
+    %script(src="https://code.jquery.com/jquery-2.1.1.min.js")
+    %script(src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js")
+    %script(src="/js/vector_editor.js")
   %body
     #toolbar
       %form{action: '/game_board/tick', method: 'POST'}
@@ -17,7 +21,7 @@
               - else
                 %span
                   - board.units[[x,y]].each do |u|
-                    %p.unit
+                    %p.unit{uid: u.uid, title: u.title}
                       = u.title
                       - if !u.vector.nil?
                         %span.coordinates=u.vector.map{|k,v| "#{k}#{v}"}.join(' ')

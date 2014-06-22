@@ -1,10 +1,12 @@
 require 'json'
+require 'securerandom'
 
 class Unit
 
-  attr_reader :title, :vector
+  attr_reader :uid, :title, :vector
 
   def initialize(params = {})
+    @uid = params[:uid] || SecureRandom.uuid
     @title = params[:title] || 'NoName'
     @vector = params[:vector]
   end
@@ -17,6 +19,7 @@ class Unit
     {
       'json_class' => self.class.name,
       'data' => {
+        uid: @uid,
         title: @title,
         vector: @vector
       } 
