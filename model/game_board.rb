@@ -58,18 +58,18 @@ class GameBoard
       when :n
         c[1] -= m
       when :ne
-        c[1] -= m if c[0] % 2 == 1
+        c[1] -= ((m + (c[0] % 2 == 0 ? 0 : 1)) / 2)
         c[0] += m
       when :se
-        c[1] += m if c[0] % 2 == 0
+        c[1] += ((m + (c[0] % 2 == 0 ? 1 : 0)) / 2)
         c[0] += m
       when :s
         c[1] += m
       when :sw
-        c[1] += m if c[0] % 2 == 0
+        c[1] += ((m + (c[0] % 2 == 0 ? 1 : 0)) / 2)
         c[0] -= m
       when :nw
-        c[1] -= m if c[0] % 2 == 1
+        c[1] -= ((m + (c[0] % 2 == 0 ? 0 : 1)) / 2)
         c[0] -= m
       end
     end
