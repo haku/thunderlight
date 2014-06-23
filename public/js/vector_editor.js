@@ -4,9 +4,36 @@ VectorEditor = {};
 
   var dialogDiv;
 
+  function clickFactory(sel, opSel) {
+    var lbl = $('.label' + sel, dialogDiv);
+    var opLbl = $('.label' + opSel, dialogDiv);
+    lbl.text('');
+    opLbl.text('');
+    return function() {
+      var v = opLbl.text();
+      if (v && (v = parseInt(v)) > 0) {
+        v -= 1;
+        opLbl.text(v > 0 ? v : '');
+      }
+      else {
+        var v = lbl.text();
+        v = v ? parseInt(v) + 1 : 1;
+        lbl.text(v > 0 ? v : '');
+      }
+    };
+  }
+
   function createDialog() {
     dialogDiv = $('#vectordialog');
     $('button', dialogDiv).button();
+
+    $('button.n', dialogDiv).click(clickFactory('.n', '.s'));
+    $('button.s', dialogDiv).click(clickFactory('.s', '.n'));
+    $('button.ne', dialogDiv).click(clickFactory('.ne', '.sw'));
+    $('button.sw', dialogDiv).click(clickFactory('.sw', '.ne'));
+    $('button.nw', dialogDiv).click(clickFactory('.nw', '.se'));
+    $('button.se', dialogDiv).click(clickFactory('.se', '.nw'));
+
     $(dialogDiv).dialog({
       autoOpen: false,
       modal: true,
