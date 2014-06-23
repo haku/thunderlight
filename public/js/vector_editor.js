@@ -2,6 +2,8 @@ VectorEditor = {};
 
 (function() {
 
+  ORDINALS = ['n', 'ne', 'se', 's', 'sw', 'nw'];
+
   var dialogDiv;
 
   function resetDialog() {
@@ -9,12 +11,38 @@ VectorEditor = {};
   }
 
   function setDialog(vector) {
-    $('.label.n',  dialogDiv).text(vector['n']  || '');
-    $('.label.ne', dialogDiv).text(vector['ne'] || '');
-    $('.label.se', dialogDiv).text(vector['se'] || '');
-    $('.label.s',  dialogDiv).text(vector['s']  || '');
-    $('.label.sw', dialogDiv).text(vector['sw'] || '');
-    $('.label.nw', dialogDiv).text(vector['nw'] || '');
+    ORDINALS.forEach(function(o) {
+      $('.label.' + o,  dialogDiv).text(vector[o]  || '');
+    });
+  }
+  
+  function submit(event) {
+    $(event.target).button("option", "disabled", true);
+
+    var vector = {};
+    ORDINALS.forEach(function(o) {
+      var x = $('.label.' + o,  dialogDiv).text();
+      if (x) vector[o] = x;
+    });
+    console.log('vector', vector);
+
+    $.ajax({
+      url: '/game_board/vector',
+      type: 'POST',
+      data: {
+        uid: $(dialogDiv).dialog('option', 'uid'),
+        vector: vector
+      },
+      beforeSend: function() {
+        $('.ui-dialog-buttonpane button', dialogDiv.parent()).focus();
+      },
+      success: function(resp) {
+        window.location.reload(true);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log('error', jqXHR, textStatus, errorThrown);
+      }
+    });
   }
 
   function clickFactory(sel, opSel) {
@@ -53,7 +81,8 @@ VectorEditor = {};
         $('.ui-dialog-buttonpane button', dialogDiv.parent()).focus();
       },
       buttons: {
-        Cancel: function() {
+        Set: submit,
+        Cancel: function(foo) {
           $(this).dialog('close');
         }
       }

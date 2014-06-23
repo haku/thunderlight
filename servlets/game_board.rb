@@ -10,3 +10,11 @@ post '/game_board/tick' do
   end
   redirect to('/game_board')
 end
+
+post '/game_board/vector' do
+  puts "vector: #{params}"
+  State.update_board do |board|
+    board.set_unit_vector params['uid'], HashHelper.sym_keys_i_vals(params['vector'])
+  end
+  "ok"
+end

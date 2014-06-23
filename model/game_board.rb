@@ -39,6 +39,15 @@ class GameBoard
     @units = new_units
   end
 
+  def set_unit_vector(uid, vector)
+    # TODO this should probable be more efficient.
+    @units.each do |c, us|
+      us.each do |u|
+        u.vector = vector if u.uid == uid
+      end
+    end
+  end
+
   private
 
   def self.apply_vector(coord, v)

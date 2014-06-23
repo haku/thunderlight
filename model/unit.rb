@@ -4,6 +4,7 @@ require 'securerandom'
 class Unit
 
   attr_reader :uid, :title, :vector
+  attr_writer :vector
 
   def initialize(params = {})
     @uid = params[:uid] || SecureRandom.uuid
