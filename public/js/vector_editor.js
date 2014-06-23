@@ -4,11 +4,13 @@ VectorEditor = {};
 
   var dialogDiv;
 
+  function resetDialog() {
+    $('.label', dialogDiv).text('');
+  }
+
   function clickFactory(sel, opSel) {
     var lbl = $('.label' + sel, dialogDiv);
     var opLbl = $('.label' + opSel, dialogDiv);
-    lbl.text('');
-    opLbl.text('');
     return function() {
       var v = opLbl.text();
       if (v && (v = parseInt(v)) > 0) {
@@ -38,6 +40,7 @@ VectorEditor = {};
       autoOpen: false,
       modal: true,
       open: function(event, ui) {
+        resetDialog();
         $('.ui-dialog-buttonpane button', dialogDiv.parent()).focus();
 //        dialogDiv.append($('<p>uid: ' + $(dialogDiv).dialog('option', 'uid') + '</p>'));
       },
