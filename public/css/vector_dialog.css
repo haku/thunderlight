@@ -2,13 +2,41 @@
   display: none;
 }
 
-#vectordialog .vectorselector tr.middle {
-  height: 3em;
+.ui-widget {
+  font-size: 1em;
+}
+
+#vectordialog td {
+  text-align: center;
+}
+
+#vectordialog .vectorselector .middle.upper .centre {
+  vertical-align: top;
+}
+
+#vectordialog .vectorselector .middle.lower .centre {
+  vertical-align: bottom;
+}
+
+#vectordialog .vectorselector .left {
+  text-align: left;
+}
+
+#vectordialog .vectorselector .centre {
+  text-align: center;
+}
+
+#vectordialog .vectorselector .right {
+  text-align: right;
+}
+
+#vectordialog .vectorselector .middle {
+  height: 4em;
   vertical-align: middle;
 }
 
 #vectordialog .vectorselector button {
-  width: 3em;
+  width: 4em;
 }
 
 #vectordialog .nw,
