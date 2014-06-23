@@ -7,11 +7,12 @@
     %link(rel="stylesheet" href="/css/vector_dialog.css")
     %script(src="https://code.jquery.com/jquery-2.1.1.min.js")
     %script(src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js")
+    %script(src="/js/game_board.js")
     %script(src="/js/vector_editor.js")
   %body
     #toolbar
       %form{action: '/game_board/tick', method: 'POST'}
-        %input{type: 'submit', value: 'tick'}
+        %input.tick{type: 'submit', value: 'Tick'}
     #gameboard
       - (0..(board.height - 1)).each do |y|
         .hexrow
