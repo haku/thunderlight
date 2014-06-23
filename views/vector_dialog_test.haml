@@ -12,6 +12,6 @@
       });
   %body
     #gameboard
-      %p.unit{uid: '123-456-7890', title: 'Test Mech'}
+      %p.unit{uid: '123-456-7890', title: 'Test Mech', vector: {nw: 1}.to_json}
         = 'Test Mech'
     = haml :vector_dialog

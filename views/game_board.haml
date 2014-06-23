@@ -22,7 +22,7 @@
               - else
                 %span
                   - board.units[[x,y]].each do |u|
-                    %p.unit{uid: u.uid, title: u.title}
+                    %p.unit{uid: u.uid, title: u.title, vector: (u.vector || {}).to_json}
                       = u.title
                       - if !u.vector.nil?
                         %span.coordinates=u.vector.map{|k,v| "#{k}#{v}"}.join(' ')
