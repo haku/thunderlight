@@ -24,5 +24,6 @@ require './model/unit.rb'
 # servlets
 require './servlets/desu'
 require './servlets/game_board'
+require './servlets/vector_dialog_test'
 
 run Sinatra::Application

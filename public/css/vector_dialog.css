@@ -1,0 +1,40 @@
+#vectordialog {
+  display: none;
+}
+
+#vectordialog .vectorselector tr.middle {
+  height: 3em;
+  vertical-align: middle;
+}
+
+#vectordialog .vectorselector button {
+  width: 3em;
+}
+
+#vectordialog .nw,
+#vectordialog .ne {
+  margin-bottom: 0.5em;
+}
+
+#vectordialog .sw,
+#vectordialog .se {
+  margin-top: 0.5em;
+}
+
+#vectordialog .nw,
+#vectordialog .se {
+  -ms-transform:rotate(-60deg); /* IE 9 */
+  -moz-transform:rotate(-60deg); /* Firefox */
+  -webkit-transform:rotate(-60deg); /* Safari and Chrome */
+  -o-transform:rotate(-60deg); /* Opera */
+  transform:rotate(-60deg);
+}
+
+#vectordialog .ne,
+#vectordialog .sw {
+  -ms-transform:rotate(60deg); /* IE 9 */
+  -moz-transform:rotate(60deg); /* Firefox */
+  -webkit-transform:rotate(60deg); /* Safari and Chrome */
+  -o-transform:rotate(60deg); /* Opera */
+  transform:rotate(60deg);
+}

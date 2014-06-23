@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %link(rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/dot-luv/jquery-ui.css")
+    %link(rel="stylesheet" href="/css/vector_dialog.css")
+    %script(src="https://code.jquery.com/jquery-2.1.1.min.js")
+    %script(src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js")
+    %script(src="/js/vector_editor.js")
+    :javascript
+      $(document).ready(function() {
+        $('#gameboard .unit:first').trigger('click');
+      });
+  %body
+    #gameboard
+      %p.unit{uid: '123-456-7890', title: 'Test Mech'}
+        = 'Test Mech'
+    = haml :vector_dialog
