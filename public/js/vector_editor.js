@@ -6,10 +6,12 @@ VectorEditor = {};
 
   function createDialog() {
     dialogDiv = $('#vectordialog');
+    $('button', dialogDiv).button();
     $(dialogDiv).dialog({
       autoOpen: false,
       modal: true,
       open: function(event, ui) {
+        $('.ui-dialog-buttonpane button', dialogDiv.parent()).focus();
 //        dialogDiv.append($('<p>uid: ' + $(dialogDiv).dialog('option', 'uid') + '</p>'));
       },
       buttons: {
