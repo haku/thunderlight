@@ -1,1 +1,2 @@
 bundle exec rspec spec
+rake jasmine:ci

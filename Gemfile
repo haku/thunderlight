@@ -21,4 +21,5 @@ gem 'pry'
 group :test do
   gem 'rspec'
   gem 'rspec-expectations'
+  gem 'jasmine'
 end
