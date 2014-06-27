@@ -19,8 +19,8 @@ GameBoard = {};
       VectorEditor.editUnitDiv(unitDiv);
     }
     else {
-      $('#gameboard .unit').removeClass('selected');
-      $('#gameboard .cell').removeClass('vectortarget');
+      $('#gameboard .unit.selected').removeClass('selected');
+      $('#gameboard .cell.vectortarget').removeClass('vectortarget');
       if (unitDiv) {
         var u = divToUnit(unitDiv);
         unitDiv.addClass('selected');
