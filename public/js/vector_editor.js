@@ -89,24 +89,17 @@ VectorEditor = {};
     });
   }
 
-  function unitDivClicked(unitDiv) {
+  VectorEditor.init = function() {
+    createDialog();
+  };
+
+  VectorEditor.editUnitDiv = function(unitDiv) {
     $(dialogDiv).dialog({
       uid:    unitDiv.attr('uid'),
       title:  unitDiv.attr('title'),
       vector: JSON.parse(unitDiv.attr('vector'))
     });
     $(dialogDiv).dialog('open');
-  };
-
-  function registerClickEvents() {
-    $('#gameboard .unit').click(function() {
-      unitDivClicked($(this));
-    });
-  }
-
-  VectorEditor.init = function() {
-    registerClickEvents();
-    createDialog();
   };
 
 })();

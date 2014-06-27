@@ -18,13 +18,13 @@
       - (0..(board.height - 1)).each do |y|
         .hexrow
           - (0..(board.width - 1)).each do |x|
-            %div
+            %div.cell{id: "cell_#{x}_#{y}"}
               - if board.units[[x,y]].nil?
                 %span.coordinates (#{x},#{y})
               - else
                 %span
                   - board.units[[x,y]].each do |u|
-                    %p.unit{uid: u.uid, title: u.title, vector: (u.vector || {}).to_json}
+                    %p.unit{uid: u.uid, title: u.title, coord: [x, y].to_json, vector: (u.vector || {}).to_json}
                       = u.title
                       - if !u.vector.nil?
                         %span.coordinates=u.vector.map{|k,v| "#{k}#{v}"}.join(' ')

@@ -190,12 +190,22 @@ body {
   background: #f50;
 }
 
-.hexrow > div {
+.hexrow .cell {
   background-color: #000;
 }
 
-.hexrow div:hover, .hexrow div:hover > div, #a1 > div:hover { /* hover highlight */
+.hexrow .cell:hover, .hexrow .cell:hover > div { /* hover highlight */
   background-color: #113;
+}
+
+.hexrow .cell.vectortarget,
+.hexrow .cell.vectortarget > div {
+  background-color: #383;
+}
+
+.hexrow .cell.vectortarget:hover,
+.hexrow .cell.vectortarget:hover > div { /* target hover highlight */
+  background-color: #4a4;
 }
 
 .hexrow > div > .coordinates {
@@ -214,4 +224,8 @@ body {
 
 .hexrow .unit .coordinates {
   color: #ff0;
+}
+
+.hexrow .unit.selected {
+  border: solid 0.5em #55f;
 }
