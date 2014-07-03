@@ -29,6 +29,7 @@ GameBoard = {};
     else {
       $('#gameboard .unit.selected').removeClass('selected');
       $('#gameboard .cell.vectortarget').removeClass('vectortarget');
+      $('#gameboard .cell.thrusttarget').removeClass('thrusttarget');
       if (unitDiv) {
         var u = divToUnit(unitDiv);
         unitDiv.addClass('selected');
