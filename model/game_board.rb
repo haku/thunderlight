@@ -31,19 +31,19 @@ class GameBoard
 
   def tick!
     new_units = {}
-    @units.each do |c, us|
-      us.each do |u|
-        (new_units[GameBoard.apply_vector(c, u.vector)] ||= []) << u 
+    @units.each do |coord, units|
+      units.each do |unit|
+        (new_units[GameBoard.apply_vector(coord, unit.vector)] ||= []) << unit
       end
     end
     @units = new_units
   end
 
   def set_unit_vector(uid, vector)
-    # TODO this should probable be more efficient.
-    @units.each do |c, us|
-      us.each do |u|
-        u.vector = vector if u.uid == uid
+    # TODO this search should probable be more efficient.
+    @units.each do |coord, units|
+      units.each do |unit|
+        unit.vector = vector if unit.uid == uid
       end
     end
   end
