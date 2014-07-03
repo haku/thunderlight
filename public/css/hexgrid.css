@@ -201,6 +201,7 @@ body {
 .hexrow .cell.thrusttarget,
 .hexrow .cell.thrusttarget > div {
   background-color: #883;
+  cursor: crosshair;
 }
 
 .hexrow .cell.thrusttarget:hover,
