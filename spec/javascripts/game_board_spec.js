@@ -47,4 +47,20 @@ describe('game_board', function(){
     it('anw3', function(){applyVector([10,3], {nw: 3}, [ 7,2])});
   });
 
+  function possibleThrustCoords(coord, vector, points, exp) {
+    expect(GameBoard.possibleThrustCoords(coord, vector, points).sort()).toEqual(exp.sort())
+  }
+
+  describe('possible thust to coords', function() {
+    it('thrust=1', function(){possibleThrustCoords([9,3], {se: 1}, 1, [
+        [10,3], // {}
+        [10,2], // {n: 1}
+        [11,3], // {ne: 1}
+        [11,4], // {se: 1}
+        [10,4], // {s: 1}
+        [ 9,4], // {sw: 1}
+        [ 9,3]  // {nw: 1}
+        ])});
+  });
+
 });

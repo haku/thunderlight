@@ -3,17 +3,18 @@ require 'securerandom'
 
 class Unit
 
-  attr_reader :uid, :title, :vector
-  attr_writer :vector
+  attr_reader :uid, :title, :vector, :thrust
+  attr_writer :vector, :thrust
 
   def initialize(params = {})
     @uid = params[:uid] || SecureRandom.uuid
     @title = params[:title] || 'NoName'
     @vector = params[:vector]
+    @thrust = params[:thrust]
   end
 
   def to_s
-    "unit{#{@title}, #{@vector || '-'}}"
+    "unit{#{@title}, #{@vector || '-'}, #{@thrust || '-'}}"
   end
 
   def to_json(*a)
@@ -22,14 +23,17 @@ class Unit
       'data' => {
         uid: @uid,
         title: @title,
-        vector: @vector
+        vector: @vector,
+        thrust: @thrust
       } 
     }.to_json(*a)
   end
 
   def self.json_create(o)
     h = HashHelper.symbolise_keys(o['data'])
-    h[:vector] = HashHelper.symbolise_keys(h[:vector]) if h[:vector]
+    [:vector, :thrust].each do |k|
+      h[k] = HashHelper.symbolise_keys(h[k]) if h[k]
+    end
     new(h)
   end
 

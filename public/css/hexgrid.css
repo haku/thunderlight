@@ -198,6 +198,16 @@ body {
   background-color: #113;
 }
 
+.hexrow .cell.thrusttarget,
+.hexrow .cell.thrusttarget > div {
+  background-color: #883;
+}
+
+.hexrow .cell.thrusttarget:hover,
+.hexrow .cell.thrusttarget:hover > div { /* target hover highlight */
+  background-color: #aa4;
+}
+
 .hexrow .cell.vectortarget,
 .hexrow .cell.vectortarget > div {
   background-color: #383;

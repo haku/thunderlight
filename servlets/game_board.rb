@@ -18,3 +18,11 @@ post '/game_board/vector' do
   end
   "ok"
 end
+
+post '/game_board/thrust' do
+  puts "thrust: #{params}"
+  State.update_board do |board|
+    board.set_unit_thrust params['uid'], HashHelper.sym_keys_i_vals(params['thrust'])
+  end
+  "ok"
+end

@@ -33,17 +33,29 @@ class GameBoard
     new_units = {}
     @units.each do |coord, units|
       units.each do |unit|
+        unit.vector = GameBoard.apply_thrust(unit.vector, unit.thrust)
+        unit.thrust = nil
         (new_units[GameBoard.apply_vector(coord, unit.vector)] ||= []) << unit
       end
     end
     @units = new_units
   end
 
+
   def set_unit_vector(uid, vector)
     # TODO this search should probable be more efficient.
     @units.each do |coord, units|
       units.each do |unit|
         unit.vector = vector if unit.uid == uid
+      end
+    end
+  end
+
+  def set_unit_thrust(uid, thrust)
+    # TODO this search should probable be more efficient.
+    @units.each do |coord, units|
+      units.each do |unit|
+        unit.thrust = thrust if unit.uid == uid
       end
     end
   end
@@ -74,6 +86,13 @@ class GameBoard
       end
     end
     return c
+  end
+
+  def self.apply_thrust(v, t)
+    return v if t.nil?
+
+    puts "TODO Apply thrust #{t} to vector #{v}."
+    return v
   end
 
 
