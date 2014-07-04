@@ -12,7 +12,7 @@ VectorEditor = {};
 
   function setDialog(vector) {
     ORDINALS.forEach(function(o) {
-      $('.label.' + o,  dialogDiv).text(vector[o]  || '');
+      $('.label.' + o,  dialogDiv).text((vector || {})[o] || '');
     });
   }
   
