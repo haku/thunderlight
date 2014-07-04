@@ -24,10 +24,11 @@
               - else
                 %span
                   - board.units[[x,y]].each do |u|
-                    %p.unit{ uid: u.uid, title: u.title,                    |
-                           coord: [x, y].to_json,                           |
-                          vector: u.vector.to_json,                         |
-                          thrust: (u.thrust.nil? ? '' : u.thrust.to_json) } |
+                    %p.unit{  uid: u.uid, title: u.title,                    |
+                    thrust_points: u.thrust_points,                          |
+                            coord: [x, y].to_json,                           |
+                           vector: u.vector.to_json,                         |
+                           thrust: (u.thrust.nil? ? '' : u.thrust.to_json) } |
                       = u.title
                       - if !u.vector.nil?
                         %span.coordinates=u.vector.map{|k,v| "#{k}#{v}"}.join(' ')

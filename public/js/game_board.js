@@ -3,6 +3,8 @@ GameBoard = {};
 (function() {
 
   function divToUnit(unitDiv) {
+    var thrust_points = parseInt(unitDiv.attr('thrust_points'));
+
     var coord = JSON.parse(unitDiv.attr('coord'));
     var vector = JSON.parse(unitDiv.attr('vector'));
     var next_coord = GameBoard.applyVector(coord, vector);
@@ -10,8 +12,6 @@ GameBoard = {};
 
     var thrust_raw = unitDiv.attr('thrust');
     var thrust = thrust_raw ? JSON.parse(thrust_raw) : null;
-
-    var thrust_points = 3; // TODO test value.
 
     return {
       uid:    unitDiv.attr('uid'),

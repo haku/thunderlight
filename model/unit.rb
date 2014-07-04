@@ -3,18 +3,20 @@ require 'securerandom'
 
 class Unit
 
-  attr_reader :uid, :title, :vector, :thrust
+  attr_reader :uid, :title, :thrust_points,
+    :vector, :thrust
   attr_writer :vector, :thrust
 
   def initialize(params = {})
     @uid = params[:uid] || SecureRandom.uuid
     @title = params[:title] || 'NoName'
+    @thrust_points = params[:thrust_points] || 0
     @vector = params[:vector]
     @thrust = params[:thrust]
   end
 
   def to_s
-    "unit{#{@title}, #{@vector || '-'}, #{@thrust || '-'}}"
+    "unit{#{@title}, #{@thrust_points}, #{@vector || '-'}, #{@thrust || '-'}}"
   end
 
   def to_json(*a)
@@ -23,6 +25,7 @@ class Unit
       'data' => {
         uid: @uid,
         title: @title,
+        thrust_points: @thrust_points,
         vector: @vector,
         thrust: @thrust
       } 

@@ -101,9 +101,11 @@ class GameBoard
   def fake_data
     (@units[[1,1]] ||= []) << Unit.new(
       title:  'M1',
+      thrust_points: 2,
       vector: {ne: 1, se: 1}
     ) << Unit.new(
-      title: 'M2'
+      title: 'M2',
+      thrust_points: 1
     )
   end
 
