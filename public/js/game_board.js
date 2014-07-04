@@ -5,6 +5,8 @@ GameBoard = {};
   function divToUnit(unitDiv) {
     var coord = JSON.parse(unitDiv.attr('coord'));
     var vector = JSON.parse(unitDiv.attr('vector'));
+    var next_coord = GameBoard.applyVector(coord, vector);
+    var next_coord_2 = GameBoard.applyVector(next_coord, vector);
 
     var thrust_raw = unitDiv.attr('thrust');
     var thrust = thrust_raw ? JSON.parse(thrust_raw) : null;
@@ -17,7 +19,7 @@ GameBoard = {};
       coord:  coord,
       vector: vector,
       thrust: thrust,
-      next_coord: GameBoard.applyVector(coord, vector),
+      next_coords: [next_coord, next_coord_2],
       possible_thrust_coords: GameBoard.possibleThrustCoords(coord, vector, thrust_points)
     };
   }
@@ -33,7 +35,9 @@ GameBoard = {};
       if (unitDiv) {
         var u = divToUnit(unitDiv);
         unitDiv.addClass('selected');
-        $('#gameboard #cell_' + u.next_coord[0] + '_' + u.next_coord[1]).addClass('vectortarget');
+        u.next_coords.forEach(function(c) {
+          $('#gameboard #cell_' + c[0] + '_' + c[1]).addClass('vectortarget');
+        });
         u.possible_thrust_coords.forEach(function(c) {
           $('#gameboard #cell_' + c[0] + '_' + c[1]).addClass('thrusttarget');
         });
