@@ -98,19 +98,18 @@ GameBoard = {};
 
   GameBoard.possibleThrustCoords = function(coord, vector, thrust_points) {
     var ret = [];
-
-    // Option of doing nothing.
     ret.push(GameBoard.applyVector(coord, vector));
-    
-    // For now assume thrust_points is always 1.
-    ORDINALS.forEach(function(o) {
-      var pos_v = $.extend({}, vector);
-      pos_v[o] = (pos_v[o] || 0) + 1;
-      var pos_c = GameBoard.applyVector(coord, pos_v);
-      ret.push(pos_c);
-    });
-
-
+    if (thrust_points > 0) {
+      ORDINALS.forEach(function(o) {
+        var pos_v = $.extend({}, vector);
+        pos_v[o] = (pos_v[o] || 0) + 1;
+        var pos_c = GameBoard.applyVector(coord, pos_v);
+        ret.push(pos_c);
+        if (thrust_points > 1) {
+          ret = ret.concat(GameBoard.possibleThrustCoords(coord, pos_v, thrust_points - 1));
+        }
+      });
+    }
     return ret;
   };
 

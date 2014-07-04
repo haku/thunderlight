@@ -47,20 +47,57 @@ describe('game_board', function(){
     it('anw3', function(){applyVector([10,3], {nw: 3}, [ 7,2])});
   });
 
+  function set(inArr) {
+    var obj = {};
+    inArr.forEach(function(e) {
+      obj[e] = true;
+    });
+    return Object.keys(obj).sort();
+  }
+
   function possibleThrustCoords(coord, vector, points, exp) {
-    expect(GameBoard.possibleThrustCoords(coord, vector, points).sort()).toEqual(exp.sort())
+    expect(set(GameBoard.possibleThrustCoords(coord, vector, points))).toEqual(set(exp))
   }
 
   describe('possible thust to coords', function() {
-    it('thrust=1', function(){possibleThrustCoords([9,3], {se: 1}, 1, [
-        [10,3], // {}
-        [10,2], // {n: 1}
-        [11,3], // {ne: 1}
-        [11,4], // {se: 1}
-        [10,4], // {s: 1}
-        [ 9,4], // {sw: 1}
-        [ 9,3]  // {nw: 1}
-        ])});
+
+    var start = [9,3];
+    var vector = {se: 1};
+    var expected_0 = [
+      [10,3]
+    ];
+    var expected_1 = [
+      [10,2], // { n: 1}
+      [11,3], // {ne: 1}
+      [11,4], // {se: 1}
+      [10,4], // { s: 1}
+      [ 9,4], // {sw: 1}
+      [ 9,3]  // {nw: 1}
+    ];
+    var expected_2 = [
+      [ 9,2],
+      [10,1],
+      [11,2],
+      [12,2],
+      [12,3],
+      [12,4],
+      [11,5],
+      [10,5],
+      [ 9,5],
+      [ 8,4],
+      [ 8,3],
+      [ 8,2]
+    ];
+
+    it('thrust=0', function(){possibleThrustCoords(start, vector, 0,
+        expected_0)});
+
+    it('thrust=1', function(){possibleThrustCoords(start, vector, 1,
+        [].concat(expected_0, expected_1) )});
+
+    it('thrust=2', function(){possibleThrustCoords(start, vector, 2,
+        [].concat(expected_0, expected_1, expected_2) )});
+
   });
 
 });
