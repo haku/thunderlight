@@ -81,6 +81,7 @@ GameBoard = {};
         unitDiv.addClass('inprogress');
       },
       success: function(resp) {
+        unitDiv.removeClass('awaitingmovement');
         unitDiv.attr('next_vector', JSON.stringify(vector));
         $('.coordinates', unitDiv).text(stringVector(vector));
         selectUnit(unitDiv, true);

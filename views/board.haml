@@ -29,7 +29,8 @@
                   - board.units[[x,y]].each do |u|
                     %p.unit{  uid: u.uid, title: u.title, thrust_points: u.thrust_points, |
                       coord: [x, y].to_json, vector: u.vector.to_json,                    |
-                      next_vector: (u.next_vector.nil? ? '' : u.next_vector.to_json) }    |
+                      next_vector: (u.next_vector.nil? ? '' : u.next_vector.to_json),     |
+                      class: ('awaitingmovement' if u.next_vector.nil?) }                 |
                       = u.title
                       %span.coordinates=(u.display_vector || {}).map{|k,v| "#{k}#{v}"}.join(' ')
                     %br

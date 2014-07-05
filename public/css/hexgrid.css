@@ -248,6 +248,10 @@ body {
   color: #ff0;
 }
 
+.hexrow .unit.awaitingmovement {
+  border: solid 0.4em #aa0;
+}
+
 .hexrow .unit.selected {
   border: solid 0.5em #55f;
 }
