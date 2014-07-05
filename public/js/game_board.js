@@ -57,8 +57,8 @@ GameBoard = {};
 
   function thrustCellClickFactory(thrust_coords, unit) {
     return function(event) {
-      var cellDiv = $(this);
-      console.log('TODO thrust cell click', cellDiv.attr('id'), thrust_coords, unit);
+      var vector = thrust_coords[2];
+      console.log('TODO thrust cell click', 'uid', unit.uid, 'new vector', vector);
       event.stopPropagation();
     };
   }
