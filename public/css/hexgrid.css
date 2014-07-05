@@ -217,7 +217,7 @@ body {
 }
 
 .hexrow > div > .coordinates {
-  color: #444;
+  color: #222;
 }
 
 .hexrow > div:hover > .coordinates {
