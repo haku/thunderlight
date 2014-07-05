@@ -1,9 +1,18 @@
 get '/' do
-  board_ids = State.list_boards()
-  haml :index, :locals => {board_ids: board_ids}
+  boards = State.list_boards()
+  haml :index, :locals => {boards: boards}
 end
 
 post '/new_board' do
-  board = State.new_board
+  puts "new_board: #{params}"
+  title = params[:title]
+
+  if !title || title.length < 1
+    status 400
+    body "Missing title."
+    return
+  end
+
+  board = State.new_board(title)
   redirect to("/board/#{board.id}")
 end

@@ -8,22 +8,24 @@ module State
 
     def list_boards
       return [] if !Dir.exists?(BOARDS_DIR)
-      Dir.entries(BOARDS_DIR).reject{|e| e.start_with?('.')}.map{|n| n.gsub('.json', '')}
+      Dir.entries(BOARDS_DIR).reject{|e| e.start_with?('.')}.map{|n| n.gsub('.json', '')}.map do |id|
+        read_board(id, true)
+      end
     end
 
-    def new_board
-      board = GameBoard.new
+    def new_board(title)
+      board = GameBoard.new(title: title)
       add_fake_data(board)
       write_board(board)
       return board
     end
 
-    def read_board(board_id)
+    def read_board(board_id, summaries = false)
       file = file_for_board(board_id)
       raise "File not found: #{file}" if !File.exist?(file)
       GameBoard.from_h(HashHelper.symbolise_keys(JSON.parse(IO.read(file), {
         create_additions: true
-      })))
+      })), summaries)
     end
 
     def update_board(board_id)
