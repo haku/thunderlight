@@ -108,7 +108,8 @@ GameBoard = {};
     var ret = {};
 
     var noop_coord = GameBoard.applyVector(coord, vector);
-    ret[noop_coord] = noop_coord;
+    noop_coord.push(vector);
+    ret[noop_coord.slice(0,2)] = noop_coord;
 
     if (thrust_points > 0) {
       ORDINALS.forEach(function(o) {
