@@ -109,6 +109,8 @@ GameBoard = {};
   var ORDINAL_PAIRS = [['n', 's'], ['ne', 'sw'], ['nw', 'se']];
 
   GameBoard.simplifyVector = function(v) {
+    if (arraysEqual(GameBoard.applyVector([0,0], v), [0,0])) return {};
+
     var ret = {};
     ORDINAL_PAIRS.forEach(function(op) {
       var o = op[0];
@@ -194,6 +196,15 @@ GameBoard = {};
     return Object.keys(obj).map(function(key) {
       return obj[key];
     });
+  }
+
+  function arraysEqual(a, b) {
+    if (a === b) return true;
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; ++i) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
   }
 
 })();

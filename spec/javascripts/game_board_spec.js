@@ -5,8 +5,9 @@ describe('game_board', function(){
   }
 
   describe('simplfy vector', function() {
+    it('s2  ne2 nw2', function(){simplifyVector({ s: 2, ne: 2, nw: 2}, {            })});
     it('ne1 se2 sw1', function(){simplifyVector({ne: 1, se: 2, sw: 1}, {se: 2       })});
-  //it('s2  ne1 se1', function(){simplifyVector({s: 2,  ne: 1, se: 1}, { s: 1, se: 2})});
+  //it('s2  ne1 se1', function(){simplifyVector({ s: 2, ne: 1, se: 1}, { s: 1, se: 2})});
   });
 
   function applyVector(coord, vector, exp) {
