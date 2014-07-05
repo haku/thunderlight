@@ -55,10 +55,10 @@ GameBoard = {};
     event.stopPropagation();
   };
 
-  function thrustCellClickFactory(coords, unit) {
+  function thrustCellClickFactory(thrust_coords, unit) {
     return function(event) {
       var cellDiv = $(this);
-      console.log('TODO thrust cell click', cellDiv.attr('id'), coords, unit);
+      console.log('TODO thrust cell click', cellDiv.attr('id'), thrust_coords, unit);
       event.stopPropagation();
     };
   }
@@ -115,7 +115,8 @@ GameBoard = {};
         var pos_v = $.extend({}, vector);
         pos_v[o] = (pos_v[o] || 0) + 1;
         var pos_c = GameBoard.applyVector(coord, pos_v);
-        ret[pos_c] = pos_c;
+        pos_c.push(pos_v);
+        ret[pos_c.slice(0,2)] = pos_c;
         if (thrust_points > 1) {
           $.extend(ret, GameBoard.possibleThrustCoords(coord, pos_v, thrust_points - 1, false));
         }

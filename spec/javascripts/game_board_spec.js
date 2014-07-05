@@ -48,7 +48,8 @@ describe('game_board', function(){
   });
 
   function possibleThrustCoords(coord, vector, points, exp) {
-    expect(GameBoard.possibleThrustCoords(coord, vector, points).sort())
+    expect(GameBoard.possibleThrustCoords(coord, vector, points)
+        .map(function(c){return c.slice(0,2)}).sort())
       .toEqual(exp.sort());
   }
 
