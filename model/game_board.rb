@@ -33,8 +33,10 @@ class GameBoard
     new_units = {}
     @units.each do |coord, units|
       units.each do |unit|
-        unit.vector = unit.next_vector
-        unit.next_vector = nil
+        if unit.next_vector
+          unit.vector = unit.next_vector
+          unit.next_vector = nil
+        end
         (new_units[GameBoard.apply_vector(coord, unit.vector)] ||= []) << unit
       end
     end
