@@ -62,7 +62,6 @@ GameBoard = {};
   function thrustCellClickFactory(unitDiv, unit, thrust_coords) {
     return function(event) {
       var vector = thrust_coords[2];
-      console.log('TODO thrust cell click', 'uid', unit.uid, 'new vector', vector);
       postVector(unitDiv, unit, vector);
       event.stopPropagation();
     };
@@ -75,7 +74,7 @@ GameBoard = {};
       type: 'POST',
       data: {
         uid: unit.uid,
-        vector: vector
+        vector: Object.keys(vector).length > 0 ? vector : 'nil'
       },
       beforeSend: function() {
         unitDiv.addClass('inprogress');
