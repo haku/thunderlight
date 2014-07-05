@@ -12,6 +12,7 @@
     %script(src="/js/vector_editor.js")
   %body
     #toolbar
+      %p=board.turn_number
       %form{action: '/game_board/tick', method: 'POST'}
         %input.tick{type: 'submit', value: 'Tick'}
     #gameboard

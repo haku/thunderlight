@@ -11,6 +11,11 @@ body {
   border-radius: 0.2em;
 }
 
+#toolbar p {
+  margin: 0.5em;
+  text-align: center;
+}
+
 /* Based on https://stackoverflow.com/questions/10062887/generate-repeating-hexagonal-pattern-with-css3
 */
 

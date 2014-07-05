@@ -1,35 +1,37 @@
 class GameBoard
 
-  attr_reader :width, :height, :units
+  attr_reader :width, :height, :turn_number, :units
 
   def self.from_h(h)
     units = h[:units]
     if units.keys.first.class == String
       units = HashHelper.parse_array_keys(units)     
     end
-    GameBoard.new(h[:width], h[:height], units)
+    GameBoard.new(h[:width], h[:height], h[:turn_number], units)
   end
 
-  def initialize(width = 30, height = 20, units = {})
+  def initialize(width = 30, height = 20, turn_number = 1, units = {})
     @width = width
     @height = height
+    @turn_number = turn_number;
     @units = units
-    fake_data if units.empty?
   end
 
   def to_s
-    "gameBoard{#{width}, #{height}, #{units}}"
+    "gameBoard{#{@width}, #{@height}, #{@turn_number}, #{@units}}"
   end
 
   def to_h
     {
       width: @width,
       height: @height,
+      turn_number: @turn_number,
       units: @units
     }
   end
 
   def tick!
+    @turn_number += 1;
     new_units = {}
     @units.each do |coord, units|
       units.each do |unit|
@@ -43,6 +45,9 @@ class GameBoard
     @units = new_units
   end
 
+  def add_unit(coord, unit)
+    (@units[coord] ||= []) << unit
+  end
 
   def set_unit_vector(uid, vector)
     # TODO this search should probable be more efficient.
@@ -79,20 +84,6 @@ class GameBoard
       end
     end
     return c
-  end
-
-
-
-
-  def fake_data
-    (@units[[1,1]] ||= []) << Unit.new(
-      title:  'M1',
-      thrust_points: 2,
-      vector: {ne: 1, se: 1}
-    ) << Unit.new(
-      title: 'M2',
-      thrust_points: 1
-    )
   end
 
 end
