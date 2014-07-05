@@ -15,9 +15,9 @@
       .turncounter
         %span.label turn
         %span.value=board.turn_number
-      %form{action: '/game_board/tick', method: 'POST'}
+      %form{action: "/board/#{board.id}/tick", method: 'POST'}
         %input.tick{type: 'submit', value: 'Tick'}
-    #gameboard
+    #gameboard{board_id: board.id}
       - (0..(board.height - 1)).each do |y|
         .hexrow
           - (0..(board.width - 1)).each do |x|

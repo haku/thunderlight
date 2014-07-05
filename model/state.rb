@@ -2,27 +2,14 @@ require 'json'
 
 module State
 
-  GAME_BOARD_FILE = File.expand_path(File.join(File.dirname(__FILE__), "../game_board.json"))
+  BOARDS_DIR = File.expand_path(File.join(File.dirname(__FILE__), "../var/boards"))
 
   class << self
 
-    def read_board
-      if File.exist?(GAME_BOARD_FILE)
-        GameBoard.from_h(HashHelper.symbolise_keys(JSON.parse(IO.read(GAME_BOARD_FILE), {
-          create_additions: true
-        })))
-      else
-        new_board()
-      end
+    def list_boards
+      return [] if !Dir.exists?(BOARDS_DIR)
+      Dir.entries(BOARDS_DIR).reject{|e| e.start_with?('.')}.map{|n| n.gsub('.json', '')}
     end
-
-    def update_board
-      board = read_board()
-      yield board
-      write_board(board)
-    end
-
-    private
 
     def new_board
       board = GameBoard.new
@@ -30,9 +17,31 @@ module State
       write_board(board)
       return board
     end
+
+    def read_board(board_id)
+      file = file_for_board(board_id)
+      raise "File not found: #{file}" if !File.exist?(file)
+      GameBoard.from_h(HashHelper.symbolise_keys(JSON.parse(IO.read(file), {
+        create_additions: true
+      })))
+    end
+
+    def update_board(board_id)
+      board = read_board(board_id)
+      yield board
+      write_board(board)
+    end
+
+    private
+
+    def file_for_board(board_id)
+      FileUtils.mkdir_p BOARDS_DIR if !Dir.exists?(BOARDS_DIR)
+      file = File.join(BOARDS_DIR, "#{board_id}.json")
+      return file
+    end
     
     def write_board(board)
-      IO.write(GAME_BOARD_FILE, JSON.pretty_generate(board.to_h))
+      IO.write(file_for_board(board.id), JSON.pretty_generate(board.to_h))
     end
 
     def add_fake_data(board)

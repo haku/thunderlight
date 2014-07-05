@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %title ThunderLight
+  %body
+    %h1 Thunderlight
+    %form{action: '/new_board', method: 'POST'}
+      %input.tick{type: 'submit', value: 'New Board'}
+    - board_ids.each do |board_id|
+      %ul
+        %li
+          %a{href: "/board/#{board_id}"} #{board_id}

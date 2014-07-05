@@ -2,6 +2,8 @@ GameBoard = {};
 
 (function() {
 
+  var board_id;
+
   function divToUnit(unitDiv) {
     var thrust_points = parseInt(unitDiv.attr('thrust_points'));
 
@@ -69,7 +71,7 @@ GameBoard = {};
   function postVector(unitDiv, unit, newVector) {
     var vector = GameBoard.simplifyVector(newVector);
     $.ajax({
-      url: '/game_board/vector',
+      url: '/board/' + board_id + '/vector',
       type: 'POST',
       data: {
         uid: unit.uid,
@@ -98,6 +100,7 @@ GameBoard = {};
   }
 
   GameBoard.init = function() {
+    board_id = $('#gameboard').attr('board_id');
     $('#toolbar input').button();
     $('#gameboard .cell').click(cellClickListener);
     $('#gameboard .unit').click(unitClickListener);

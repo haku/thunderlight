@@ -2,6 +2,8 @@ VectorEditor = {};
 
 (function() {
 
+  var board_id;
+
   ORDINALS = ['n', 'ne', 'se', 's', 'sw', 'nw'];
 
   var dialogDiv;
@@ -27,7 +29,7 @@ VectorEditor = {};
     console.log('vector', vector);
 
     $.ajax({
-      url: '/game_board/vector',
+      url: '/board/' + board_id + '/vector',
       type: 'POST',
       data: {
         uid: $(dialogDiv).dialog('option', 'uid'),
@@ -90,6 +92,7 @@ VectorEditor = {};
   }
 
   VectorEditor.init = function() {
+    board_id = $('#gameboard').attr('board_id');
     createDialog();
   };
 

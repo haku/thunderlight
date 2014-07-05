@@ -1,28 +1,30 @@
 class GameBoard
 
-  attr_reader :width, :height, :turn_number, :units
+  attr_reader :id, :width, :height, :turn_number, :units
 
   def self.from_h(h)
-    units = h[:units]
+    units = h.delete(:units)
     if units.keys.first.class == String
       units = HashHelper.parse_array_keys(units)     
     end
-    GameBoard.new(h[:width], h[:height], h[:turn_number], units)
+    GameBoard.new(h, units)
   end
 
-  def initialize(width = 30, height = 20, turn_number = 1, units = {})
-    @width = width
-    @height = height
-    @turn_number = turn_number;
+  def initialize(params = {}, units = {})
+    @id = params[:id] || SecureRandom.uuid
+    @width = params[:width] || 30
+    @height = params[:height] || 20
+    @turn_number = params[:turn_number] || 1
     @units = units
   end
 
   def to_s
-    "gameBoard{#{@width}, #{@height}, #{@turn_number}, #{@units}}"
+    "gameBoard{#{@id}, #{@width}, #{@height}, #{@turn_number}, #{@units}}"
   end
 
   def to_h
     {
+      id: @id,
       width: @width,
       height: @height,
       turn_number: @turn_number,
