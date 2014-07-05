@@ -26,7 +26,7 @@ GameBoard = {};
     };
   }
 
-  function selectUnit(unitDiv, reselect = true) {
+  function selectUnit(unitDiv, reselect = false) {
     if (unitDiv && !reselect && unitDiv.hasClass('selected')) {
       VectorEditor.editUnitDiv(unitDiv);
     }
