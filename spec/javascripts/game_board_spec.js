@@ -47,16 +47,9 @@ describe('game_board', function(){
     it('anw3', function(){applyVector([10,3], {nw: 3}, [ 7,2])});
   });
 
-  function set(inArr) {
-    var obj = {};
-    inArr.forEach(function(e) {
-      obj[e] = true;
-    });
-    return Object.keys(obj).sort();
-  }
-
   function possibleThrustCoords(coord, vector, points, exp) {
-    expect(set(GameBoard.possibleThrustCoords(coord, vector, points))).toEqual(set(exp))
+    expect(GameBoard.possibleThrustCoords(coord, vector, points).sort())
+      .toEqual(exp.sort());
   }
 
   describe('possible thust to coords', function() {

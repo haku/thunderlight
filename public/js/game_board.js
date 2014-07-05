@@ -31,7 +31,7 @@ GameBoard = {};
     else {
       $('#gameboard .unit.selected').removeClass('selected');
       $('#gameboard .cell.vectortarget').removeClass('vectortarget');
-      $('#gameboard .cell.thrusttarget').removeClass('thrusttarget');
+      $('#gameboard .cell.thrusttarget').removeClass('thrusttarget').off('click').click(cellClickListener);
       if (unitDiv) {
         var u = divToUnit(unitDiv);
         unitDiv.addClass('selected');
@@ -39,30 +39,34 @@ GameBoard = {};
           $('#gameboard #cell_' + c[0] + '_' + c[1]).addClass('vectortarget');
         });
         u.possible_thrust_coords.forEach(function(c) {
-          $('#gameboard #cell_' + c[0] + '_' + c[1]).addClass('thrusttarget');
+          $('#gameboard #cell_' + c[0] + '_' + c[1]).addClass('thrusttarget').off('click').click(thrustCellClickFactory(c, u));
         });
       }
     }
   }
 
-  function registerCellClickEvents() {
-    $('#gameboard .cell').click(function(event) {
-      selectUnit(null);
-      event.stopPropagation();
-    });
-  }
+  var cellClickListener = function(event) {
+    selectUnit(null);
+    event.stopPropagation();
+  };
 
-  function registerUnitClickEvents() {
-    $('#gameboard .unit').click(function(event) {
-      selectUnit($(this));
+  var unitClickListener = function(event) {
+    selectUnit($(this));
+    event.stopPropagation();
+  };
+
+  function thrustCellClickFactory(coords, unit) {
+    return function(event) {
+      var cellDiv = $(this);
+      console.log('TODO thrust cell click', cellDiv.attr('id'), coords, unit);
       event.stopPropagation();
-    });
+    };
   }
 
   GameBoard.init = function() {
     $('#toolbar input').button();
-    registerCellClickEvents();
-    registerUnitClickEvents();
+    $('#gameboard .cell').click(cellClickListener);
+    $('#gameboard .unit').click(unitClickListener);
   };
 
   GameBoard.applyVector = function(coord, v) {
@@ -100,22 +104,31 @@ GameBoard = {};
 
   ORDINALS = ['n', 'ne', 'se', 's', 'sw', 'nw'];
 
-  GameBoard.possibleThrustCoords = function(coord, vector, thrust_points) {
-    var ret = [];
-    ret.push(GameBoard.applyVector(coord, vector));
+  GameBoard.possibleThrustCoords = function(coord, vector, thrust_points, firstCall = true) {
+    var ret = {};
+
+    var noop_coord = GameBoard.applyVector(coord, vector);
+    ret[noop_coord] = noop_coord;
+
     if (thrust_points > 0) {
       ORDINALS.forEach(function(o) {
         var pos_v = $.extend({}, vector);
         pos_v[o] = (pos_v[o] || 0) + 1;
         var pos_c = GameBoard.applyVector(coord, pos_v);
-        ret.push(pos_c);
+        ret[pos_c] = pos_c;
         if (thrust_points > 1) {
-          ret = ret.concat(GameBoard.possibleThrustCoords(coord, pos_v, thrust_points - 1));
+          $.extend(ret, GameBoard.possibleThrustCoords(coord, pos_v, thrust_points - 1, false));
         }
       });
     }
-    return ret;
+    return firstCall ? objValues(ret) : ret;
   };
+
+  function objValues(obj) {
+    return Object.keys(obj).map(function(key) {
+      return obj[key];
+    });
+  }
 
 })();
 
