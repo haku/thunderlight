@@ -240,3 +240,7 @@ body {
 .hexrow .unit.selected {
   border: solid 0.5em #55f;
 }
+
+.hexrow .unit.inprogress {
+  background: #f30;
+}

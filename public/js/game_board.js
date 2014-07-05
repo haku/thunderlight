@@ -7,25 +7,27 @@ GameBoard = {};
 
     var coord = JSON.parse(unitDiv.attr('coord'));
     var vector = JSON.parse(unitDiv.attr('vector'));
-    var next_coord = GameBoard.applyVector(coord, vector);
-    var next_coord_2 = GameBoard.applyVector(next_coord, vector);
 
-    var thrust_raw = unitDiv.attr('thrust');
-    var thrust = thrust_raw ? JSON.parse(thrust_raw) : null;
+    var next_vector_raw = unitDiv.attr('next_vector');
+    var next_vector = next_vector_raw ? JSON.parse(next_vector_raw) : null;
+
+    var active_vector = next_vector || vector;
+    var next_coord = GameBoard.applyVector(coord, active_vector);
+    var next_coord_2 = GameBoard.applyVector(next_coord, active_vector);
 
     return {
       uid:    unitDiv.attr('uid'),
       title:  unitDiv.attr('title'),
       coord:  coord,
       vector: vector,
-      thrust: thrust,
+      next_vector: next_vector,
       next_coords: [next_coord, next_coord_2],
       possible_thrust_coords: GameBoard.possibleThrustCoords(coord, vector, thrust_points)
     };
   }
 
-  function selectUnit(unitDiv) {
-    if (unitDiv && unitDiv.hasClass('selected')) {
+  function selectUnit(unitDiv, reselect = true) {
+    if (unitDiv && !reselect && unitDiv.hasClass('selected')) {
       VectorEditor.editUnitDiv(unitDiv);
     }
     else {
@@ -39,7 +41,7 @@ GameBoard = {};
           $('#gameboard #cell_' + c[0] + '_' + c[1]).addClass('vectortarget');
         });
         u.possible_thrust_coords.forEach(function(c) {
-          $('#gameboard #cell_' + c[0] + '_' + c[1]).addClass('thrusttarget').off('click').click(thrustCellClickFactory(c, u));
+          $('#gameboard #cell_' + c[0] + '_' + c[1]).addClass('thrusttarget').off('click').click(thrustCellClickFactory(unitDiv, u, c));
         });
       }
     }
@@ -55,12 +57,45 @@ GameBoard = {};
     event.stopPropagation();
   };
 
-  function thrustCellClickFactory(thrust_coords, unit) {
+  function thrustCellClickFactory(unitDiv, unit, thrust_coords) {
     return function(event) {
       var vector = thrust_coords[2];
       console.log('TODO thrust cell click', 'uid', unit.uid, 'new vector', vector);
+      postVector(unitDiv, unit, vector);
       event.stopPropagation();
     };
+  }
+
+  function postVector(unitDiv, unit, vector) {
+    // TODO simplify this vector before submitting / displaying it.
+    console.log(stringVector(vector));
+    $.ajax({
+      url: '/game_board/vector',
+      type: 'POST',
+      data: {
+        uid: unit.uid,
+        vector: vector
+      },
+      beforeSend: function() {
+        unitDiv.addClass('inprogress');
+      },
+      success: function(resp) {
+        unitDiv.attr('next_vector', JSON.stringify(vector));
+        $('.coordinates', unitDiv).text(stringVector(vector));
+        selectUnit(unitDiv, true);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        // TODO show this better, perhaps a dlg.
+        console.log('error', jqXHR, textStatus, errorThrown);
+      },
+      complete: function(jqXHR, textStatus) {
+        unitDiv.removeClass('inprogress');
+      }
+    });
+  }
+
+  function stringVector(v) {
+    return Object.keys(v).map(function(k, i) { return k + v[k] }).join(' ');
   }
 
   GameBoard.init = function() {
