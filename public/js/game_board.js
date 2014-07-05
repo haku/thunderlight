@@ -66,9 +66,8 @@ GameBoard = {};
     };
   }
 
-  function postVector(unitDiv, unit, vector) {
-    // TODO simplify this vector before submitting / displaying it.
-    console.log(stringVector(vector));
+  function postVector(unitDiv, unit, newVector) {
+    var vector = GameBoard.simplifyVector(newVector);
     $.ajax({
       url: '/game_board/vector',
       type: 'POST',
@@ -104,6 +103,33 @@ GameBoard = {};
     $('#gameboard .unit').click(unitClickListener);
   };
 
+  var ORDINAL_PAIRS = [['n', 's'], ['ne', 'sw'], ['nw', 'se']];
+
+  GameBoard.simplifyVector = function(v) {
+    var ret = {};
+    ORDINAL_PAIRS.forEach(function(op) {
+      var o = op[0];
+      var p = op[1];
+      var a = v[o];
+      var b = v[p];
+      if (a && b) {
+        if (a > b) {
+          ret[o] = a - b;
+        }
+        else if (b > a) {
+          ret[p] = b - a;
+        }
+      }
+      else if (a) {
+        ret[o] = a;
+      }
+      else if (b) {
+        ret[p] = b;
+      }
+    });
+    return ret;
+  };
+
   GameBoard.applyVector = function(coord, v) {
     if (!coord) return [];
     c = coord.slice(0);
@@ -137,7 +163,7 @@ GameBoard = {};
     return c
   };
 
-  ORDINALS = ['n', 'ne', 'se', 's', 'sw', 'nw'];
+  var ORDINALS = ['n', 'ne', 'se', 's', 'sw', 'nw'];
 
   GameBoard.possibleThrustCoords = function(coord, vector, thrust_points, firstCall = true) {
     var ret = {};

@@ -1,7 +1,16 @@
 describe('game_board', function(){
 
+  function simplifyVector(vector, exp) {
+    expect(GameBoard.simplifyVector(vector)).toEqual(exp);
+  }
+
+  describe('simplfy vector', function() {
+    it('ne1 se2 sw1', function(){simplifyVector({ne: 1, se: 2, sw: 1}, {se: 2       })});
+  //it('s2  ne1 se1', function(){simplifyVector({s: 2,  ne: 1, se: 1}, { s: 1, se: 2})});
+  });
+
   function applyVector(coord, vector, exp) {
-    expect(GameBoard.applyVector(coord, vector)).toEqual(exp)
+    expect(GameBoard.applyVector(coord, vector)).toEqual(exp);
   }
 
   describe('apply single vector', function() {
