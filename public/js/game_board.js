@@ -107,11 +107,11 @@ GameBoard = {};
   };
 
   var ORDINAL_PAIRS = [['n', 's'], ['ne', 'sw'], ['nw', 'se']];
+  var ORDINAL_FRIENDS = [['ne', 'nw', 'n'], ['se', 'sw', 's']];
 
   GameBoard.simplifyVector = function(v) {
     if (arraysEqual(GameBoard.applyVector([0,0], v), [0,0])) return {};
-
-    var ret = {};
+    var ret = v;
     ORDINAL_PAIRS.forEach(function(op) {
       var o = op[0];
       var p = op[1];
@@ -120,16 +120,28 @@ GameBoard = {};
       if (a && b) {
         if (a > b) {
           ret[o] = a - b;
+          delete ret[p];
         }
         else if (b > a) {
           ret[p] = b - a;
+          delete ret[o];
+        }
+        else {
+          delete ret[o];
+          delete ret[p];
         }
       }
-      else if (a) {
-        ret[o] = a;
-      }
-      else if (b) {
-        ret[p] = b;
+    });
+    ORDINAL_FRIENDS.forEach(function(op) {
+      var o = op[0];
+      var p = op[1];
+      var q = op[2];
+      var a = ret[o];
+      var b = ret[p];
+      if (a && b && a === b) {
+        ret[q] = a;
+        delete ret[o];
+        delete ret[p];
       }
     });
     return ret;
