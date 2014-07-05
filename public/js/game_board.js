@@ -26,7 +26,7 @@ GameBoard = {};
     };
   }
 
-  function selectUnit(unitDiv, reselect = false) {
+  function selectUnit(unitDiv, reselect) {
     if (unitDiv && !reselect && unitDiv.hasClass('selected')) {
       VectorEditor.editUnitDiv(unitDiv);
     }
@@ -165,7 +165,7 @@ GameBoard = {};
 
   var ORDINALS = ['n', 'ne', 'se', 's', 'sw', 'nw'];
 
-  GameBoard.possibleThrustCoords = function(coord, vector, thrust_points, firstCall = true) {
+  GameBoard.possibleThrustCoords = function(coord, vector, thrust_points, recursive) {
     var ret = {};
 
     var noop_coord = GameBoard.applyVector(coord, vector);
@@ -180,11 +180,11 @@ GameBoard = {};
         pos_c.push(pos_v);
         ret[pos_c.slice(0,2)] = pos_c;
         if (thrust_points > 1) {
-          $.extend(ret, GameBoard.possibleThrustCoords(coord, pos_v, thrust_points - 1, false));
+          $.extend(ret, GameBoard.possibleThrustCoords(coord, pos_v, thrust_points - 1, true));
         }
       });
     }
-    return firstCall ? objValues(ret) : ret;
+    return recursive ? ret : objValues(ret);
   };
 
   function objValues(obj) {
