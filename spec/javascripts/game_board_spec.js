@@ -8,6 +8,7 @@ describe('game_board', function(){
     it('s2  ne2 nw2', function(){simplifyVector({ s: 2, ne: 2, nw: 2}, {            })});
     it('ne1 sw1'    , function(){simplifyVector({ne: 1, sw: 1       }, {            })});
     it('se1 nw1'    , function(){simplifyVector({se: 1, nw: 1       }, {            })});
+    it('s2 n1'      , function(){simplifyVector({ s: 2, n: 1        }, { s: 1       })});
     it('ne1 se2 sw1', function(){simplifyVector({ne: 1, se: 2, sw: 1}, {se: 2       })});
     it('ne2 nw2'    , function(){simplifyVector({ne: 2, nw: 2       }, { n: 2       })});
     it('se2 sw2'    , function(){simplifyVector({se: 2, sw: 2       }, { s: 2       })});
