@@ -88,7 +88,7 @@ body {
   left: 0;
   z-index: -1;
   overflow: hidden;
-  background: inherit;
+  background-color: inherit;
   
   -ms-transform:rotate(60deg); /* IE 9 */
   -moz-transform:rotate(60deg); /* Firefox */
@@ -101,7 +101,7 @@ body {
   content: '';
   position: absolute;
   height: 100%;
-  background: inherit;
+  background-color: inherit;
   bottom: 0;
   left: 0;
   z-index: 1;
@@ -122,7 +122,7 @@ body {
   left: 0;
   z-index: -2;
   overflow: hidden;
-  background: inherit;
+  background-color: inherit;
   
   -ms-transform:rotate(-60deg); /* IE 9 */
   -moz-transform:rotate(-60deg); /* Firefox */
@@ -136,9 +136,6 @@ body {
   position: absolute;
   height: 100%;
   background-image: inherit;
-  background-position: 0 0;
-  background-repeat: no-repeat;
-  background-size: auto 120%;
   bottom: 0;
   left: 0;
   z-index: 1;
@@ -200,8 +197,8 @@ body {
 
 .hexrow .cell.thrusttarget,
 .hexrow .cell.thrusttarget > div {
-  background-color: #883;
   cursor: crosshair;
+  background-color: #883;
 }
 
 .hexrow .cell.thrusttarget:hover,
