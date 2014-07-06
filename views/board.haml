@@ -18,10 +18,12 @@
       %form{action: "/board/#{board.id}/tick", method: 'POST'}
         %input.tick{type: 'submit', value: 'Tick'}
     #gameboard{board_id: board.id}
+      - textures = board.textures_varied
       - (0..(board.height - 1)).each do |y|
         .hexrow
           - (0..(board.width - 1)).each do |x|
-            %div.cell{id: "cell_#{x}_#{y}"}
+            %div.cell{ id: "cell_#{x}_#{y}",         |
+              class: (textures[[x,y]] || []) } |
               - if board.units[[x,y]].nil?
                 %span.coordinates (#{x},#{y})
               - else

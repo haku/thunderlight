@@ -6,4 +6,4 @@ if [ -e "$conf" ] ; then
   source "$conf"
 fi
 
-exec bundle exec shotgun -p 9223 config.ru "$@"
+exec bundle exec shotgun -p 9222 config.ru "$@"

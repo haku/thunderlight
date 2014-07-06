@@ -51,7 +51,7 @@ body {
 
   background-position: -1.25em 0; /* -left position -1 x width x sin(30) */
   background-repeat: no-repeat;
-  background-size: auto 120%;
+  background-size: auto 105%;
 }
 
 .hexrow > div:nth-child(odd) {
@@ -129,7 +129,7 @@ body {
   background-image: inherit;
   background-position: 0 0;
   background-repeat: no-repeat;
-  background-size: auto 120%;
+  background-size: auto 105%;
 
   -ms-transform-origin: 0 0; /* IE 9 */
   -webkit-transform-origin: 0 0; /* Safari and Chrome */
@@ -170,7 +170,7 @@ body {
   background-image: inherit;
   background-position: 0 0;
   background-repeat: no-repeat;
-  background-size: auto 120%;
+  background-size: auto 105%;
 
   -ms-transform-origin: 100% 0; /* IE 9 */
   -webkit-transform-origin: 100% 0; /* Safari and Chrome */
@@ -188,9 +188,11 @@ body {
 
 /* board textures */
 
-.hexrow:nth-child(1) > div {
-/* TODO background-image: url(http://example.com/texture.jpg); */
-}
+.hexrow > .asteroid.u0 { background-image: url(/imgs/asteroid_a.png); }
+.hexrow > .asteroid.u1 { background-image: url(/imgs/asteroid_b.png); }
+.hexrow > .asteroid.u2 { background-image: url(/imgs/asteroid_c.png); }
+.hexrow > .asteroid.u3 { background-image: url(/imgs/asteroid_d.png); }
+.hexrow > .asteroid.u4 { background-image: url(/imgs/asteroid_e.png); }
 
 /* board details */
 

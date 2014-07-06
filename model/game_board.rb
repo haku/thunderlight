@@ -1,30 +1,32 @@
 class GameBoard
 
-  attr_reader :id, :title, :width, :height, :turn_number, :units
+  attr_reader :id, :title, :width, :height, :turn_number,
+    :textures, :units
 
   def self.from_h(h, summaries = false)
     if summaries
       units = {}
     else
+      textures = h.delete(:textures)
+      textures = HashHelper.parse_array_keys(textures) if textures && textures.keys.first.class == String
       units = h.delete(:units)
-      if units.keys.first.class == String
-        units = HashHelper.parse_array_keys(units)     
-      end
+      units = HashHelper.parse_array_keys(units) if units.keys.first.class == String
     end
-    GameBoard.new(h, units)
+    GameBoard.new(h, textures, units)
   end
 
-  def initialize(params = {}, units = {})
+  def initialize(params = {}, textures = {}, units = {})
     @id = params[:id] || SecureRandom.uuid
     @title = params[:title]
     @width = params[:width] || 30
     @height = params[:height] || 20
     @turn_number = params[:turn_number] || 1
+    @textures = textures || {}
     @units = units
   end
 
   def to_s
-    "gameBoard{#{@id}, #{@title}, #{@width}, #{@height}, #{@turn_number}, #{@units}}"
+    "gameBoard{#{@id}, #{@title}, #{@width}, #{@height}, #{@turn_number}, #{@textures.size}, #{@units.size}}"
   end
 
   def to_h
@@ -34,6 +36,7 @@ class GameBoard
       width: @width,
       height: @height,
       turn_number: @turn_number,
+      textures: @textures,
       units: @units
     }
   end
@@ -51,6 +54,24 @@ class GameBoard
       end
     end
     @units = new_units
+  end
+
+  TEXTURE_VARIANTS = {
+    'asteroid' => 5
+  }
+
+  def textures_varied
+    @textures.each_with_object({}) do |(coord, ts), h|
+      h[coord] = ts.map do |t|
+        n = TEXTURE_VARIANTS[t]
+        # FIXME this will go wonky when more than one type of texture.
+        n ? "#{t} u#{(rand * n).to_i}" : t
+      end
+    end
+  end
+
+  def add_texture(coord, type)
+    (@textures[coord] ||= []) << type
   end
 
   def add_unit(coord, unit)

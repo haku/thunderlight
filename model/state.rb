@@ -47,6 +47,9 @@ module State
     end
 
     def add_fake_data(board)
+      (0..(board.width - 1)).to_a.product((0..board.height - 1).to_a).sample(board.width * board.height * 0.05).each do |c|
+        board.add_texture c, :asteroid
+      end
       board.add_unit [1,1], Unit.new(
         title: 'M1',
         thrust_points: 2,
