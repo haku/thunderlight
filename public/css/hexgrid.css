@@ -48,6 +48,10 @@ body {
   */
   margin: 0 0.53em;
   line-height: 4.33em; /*equals height*/
+
+  background-position: -1.25em 0; /* -left position -1 x width x sin(30) */
+  background-repeat: no-repeat;
+  background-size: auto 120%;
 }
 
 .hexrow > div:nth-child(odd) {
@@ -70,11 +74,11 @@ body {
 .hexrow > div > .rightwing:before {
   width: 5em; /* starting width + margin sizing */
   /*translate properties are initial width (10em) and half height (173.2 / 2 = 86.6) */
-  -ms-transform:rotate(60deg) translate(5em, 2.165em); /* IE 9 */
-  -moz-transform:rotate(60deg) translate(5em, 2.165em); /* Firefox */
-  -webkit-transform:rotate(60deg) translate(5em, 2.165em); /* Safari and Chrome */
-  -o-transform:rotate(60deg) translate(5em, 2.165em); /* Opera */
-  transform:rotate(60deg) translate(5em, 2.165em);
+  -ms-transform:rotate(60deg) translate(2.5em, 2.165em); /* IE 9 */
+  -moz-transform:rotate(60deg) translate(2.5em, 2.165em); /* Firefox */
+  -webkit-transform:rotate(60deg) translate(2.5em, 2.165em); /* Safari and Chrome */
+  -o-transform:rotate(60deg) translate(2.5em, 2.165em); /* Opera */
+  transform:rotate(60deg) translate(2.5em, 2.165em);
 }
 
 .hexrow > div > span {
@@ -102,7 +106,9 @@ body {
   left: 0;
   z-index: -1;
   overflow: hidden;
+
   background-color: inherit;
+  background-image: inherit;
   
   -ms-transform:rotate(60deg); /* IE 9 */
   -moz-transform:rotate(60deg); /* Firefox */
@@ -115,11 +121,16 @@ body {
   content: '';
   position: absolute;
   height: 100%;
-  background-color: inherit;
   bottom: 0;
   left: 0;
   z-index: 1;
-  
+
+  background-color: inherit;
+  background-image: inherit;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: auto 120%;
+
   -ms-transform-origin: 0 0; /* IE 9 */
   -webkit-transform-origin: 0 0; /* Safari and Chrome */
   -moz-transform-origin: 0 0; /* Firefox */
@@ -136,7 +147,9 @@ body {
   left: 0;
   z-index: -2;
   overflow: hidden;
+
   background-color: inherit;
+  background-image: inherit;
   
   -ms-transform:rotate(-60deg); /* IE 9 */
   -moz-transform:rotate(-60deg); /* Firefox */
@@ -149,11 +162,16 @@ body {
   content: '';
   position: absolute;
   height: 100%;
-  background-image: inherit;
   bottom: 0;
   left: 0;
   z-index: 1;
-  
+
+  background-color: inherit;
+  background-image: inherit;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: auto 120%;
+
   -ms-transform-origin: 100% 0; /* IE 9 */
   -webkit-transform-origin: 100% 0; /* Safari and Chrome */
   -moz-transform-origin: 100% 0; /* Firefox */
@@ -166,6 +184,12 @@ body {
   line-height: 1.1;
   vertical-align: middle;
   white-space: normal; 
+}
+
+/* board textures */
+
+.hexrow:nth-child(1) > div {
+/* TODO background-image: url(http://example.com/texture.jpg); */
 }
 
 /* board details */
